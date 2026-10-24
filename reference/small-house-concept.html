@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Concept preview: keep noindex until this becomes the client's live site. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Small House, Galle Fort (website concept)</title>
+<meta name="description" content="Website concept for Small House Boutique Guest House, Galle Fort. Not the official site.">
+<meta name="theme-color" content="#F3F4F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+:root{
+  --wall:#F3F4F2; --surface:#FFFFFF; --ink:#1C2630; --ink-soft:#55606B;
+  --accent:#1F5A86; --accent-deep:#174769; --tile:#B9603C; --slate:#5E7486;
+  --lattice:rgba(94,116,134,.22); --line:#DADFDE; --photo-bg:#D5DBDB;
+  --display:"Libre Caslon Display","Libre Caslon Text",Georgia,"Times New Roman",serif;
+  --serif:"Libre Caslon Text",Georgia,"Times New Roman",serif;
+  --sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --gutter:20px; --max:1180px;
+}
+@media (min-width:900px){:root{--gutter:32px}}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--wall);color:var(--ink);font:400 17px/1.65 var(--serif);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:12px;top:12px;z-index:50;padding:10px 14px;border-radius:8px;background:var(--surface);font:600 15px/1 var(--sans)}
+noscript p{padding:24px var(--gutter);font:500 16px/1.5 var(--sans)}
+
+/* concept note */
+.concept{padding:8px var(--gutter);background:var(--ink);color:#E6ECF1;text-align:center;font:500 12.5px/1.45 var(--sans)}
+.concept a{color:#fff}
+
+/* desktop header */
+.top{display:none}
+@media (min-width:900px){
+  .top{display:flex;align-items:center;justify-content:space-between;gap:24px;max-width:var(--max);margin:0 auto;padding:20px var(--gutter)}
+  .mark{color:var(--ink);text-decoration:none;font:400 26px/1 var(--display)}
+  .top nav{display:flex;align-items:center;gap:28px;font:500 15px/1 var(--sans)}
+  .top nav a:not(.btn){color:var(--ink);text-decoration:none}
+  .top nav a:not(.btn):hover{color:var(--accent)}
+}
+
+/* buttons and links */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border:0;border-radius:8px;background:var(--accent);color:#fff;font:600 16px/1 var(--sans);text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--accent-deep)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn.small{min-height:42px;padding:0 18px;font-size:15px}
+.btn[aria-disabled="true"]{background:#9AA7B1;cursor:not-allowed}
+.link{padding:0;border:0;background:none;color:var(--accent);font:600 15px/1.3 var(--sans);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.link:hover{color:var(--accent-deep)}
+
+/* hero */
+.hero-photo{height:56vh;min-height:340px;max-height:560px;overflow:hidden;background:var(--photo-bg)}
+.hero-photo .hero-img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;animation:settle 1.6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes settle{from{transform:scale(1.06)}to{transform:none}}
+.hero-text{padding:26px var(--gutter) 0}
+.hero h1{margin:0 0 14px;font:400 clamp(54px,15vw,100px)/.92 var(--display);letter-spacing:-.012em}
+.lede{max-width:28ch;margin:0 0 24px;font-size:19.5px;line-height:1.5}
+.hero .btn{width:100%}
+.rating{margin:16px 0 0;color:var(--ink-soft);font:500 14.5px/1.45 var(--sans)}
+.rating a{color:inherit}
+@media (min-width:900px){
+  .hero{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:end;max-width:var(--max);margin:0 auto;padding:4px var(--gutter) 0}
+  .hero-text{order:-1;padding:0 0 28px}
+  .hero-photo{height:min(76vh,700px);max-height:none}
+  .hero .btn{width:auto}
+  .lede{font-size:21px}
+}
+
+/* shared section type */
+.sec{padding-top:72px}
+@media (min-width:900px){.sec{padding-top:112px}}
+.sec-head{margin:0 0 18px;font:400 clamp(36px,8.5vw,56px)/1.02 var(--display);letter-spacing:-.005em}
+.sub{margin:36px 0 4px;font:italic 400 21px/1.3 var(--serif)}
+.prose{max-width:58ch}
+.prose p{margin:0 0 1em}
+.note{margin:14px 0 0;color:var(--ink-soft);font:400 14px/1.45 var(--sans)}
+
+/* the house */
+.house{display:grid;gap:32px}
+.house figure{margin:0}
+.house-img{width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--photo-bg)}
+.mentions{display:grid;gap:22px;margin:18px 0 0;padding:0;list-style:none}
+.mentions li{padding-top:14px;border-top:1px solid var(--line)}
+.mentions h4{margin:0 0 4px;font:700 17.5px/1.3 var(--serif)}
+.mentions p{margin:0;color:var(--ink-soft);font-size:16px;line-height:1.55}
+@media (min-width:700px){.mentions{grid-template-columns:1fr 1fr;column-gap:36px}}
+@media (min-width:900px){
+  .house{grid-template-columns:5fr 6fr;gap:72px;align-items:start}
+  .house figure{position:sticky;top:24px}
+}
+
+/* rooms */
+.rooms{display:grid;gap:48px;margin-top:32px}
+.room-img{width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--photo-bg)}
+.room-body{display:grid;grid-template-columns:1fr auto;gap:8px 20px;padding-top:18px}
+.room h3{grid-column:1;margin:0;font:400 29px/1.12 var(--display)}
+.facts{grid-column:1;margin:2px 0 0;padding:0;list-style:none;color:var(--ink-soft);font:400 15.5px/1.6 var(--sans)}
+.room .ask{grid-column:1 / -1;justify-self:start;margin-top:8px}
+.size{grid-column:2;grid-row:1 / span 2;display:grid;justify-items:end;align-content:start;gap:6px;color:var(--ink-soft);font:600 13px/1 var(--sans)}
+.size .frame{position:relative;width:56px;height:56px;border:1px dashed rgba(94,116,134,.55)}
+.size .sq{position:absolute;left:0;bottom:0;background:var(--tile)}
+@media (min-width:800px){.rooms{grid-template-columns:1fr 1fr;column-gap:40px;row-gap:64px}}
+
+/* around the house */
+.strip-head{display:flex;align-items:end;justify-content:space-between;gap:16px}
+.strip-nav{display:none;gap:8px;margin-bottom:22px}
+.nav-btn{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);cursor:pointer}
+.nav-btn:hover{border-color:var(--ink)}
+.nav-btn svg{width:18px;height:18px}
+.strip{display:grid;grid-auto-flow:column;grid-auto-columns:82%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:8px calc(-1 * var(--gutter)) 0;padding:0 var(--gutter) 10px;scroll-padding-inline:var(--gutter);scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip figure{margin:0;scroll-snap-align:start}
+.strip-img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--photo-bg)}
+.strip figcaption{margin-top:8px;color:var(--ink-soft);font:500 14.5px/1.4 var(--sans)}
+@media (min-width:900px){
+  .strip-nav{display:flex}
+  .strip{grid-auto-columns:calc((100% - 24px) / 3);margin:8px 0 0;padding:0 0 10px;scroll-padding-inline:0}
+}
+
+/* location */
+.fort{display:grid;gap:32px}
+.pairs{margin:22px 0 20px;padding:0;list-style:none;border-top:1px solid var(--line)}
+.pairs li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font:500 15.5px/1.4 var(--sans)}
+.pairs li span:last-child{color:var(--ink-soft);text-align:right}
+.map{display:block;width:100%;aspect-ratio:4/3;border:0;background:var(--photo-bg)}
+@media (min-width:900px){
+  .fort{grid-template-columns:5fr 7fr;gap:72px;align-items:start}
+  .map{aspect-ratio:16/11}
+}
+
+/* evening photo */
+.band{margin:72px 0 0}
+.band-img{width:100%;height:58vh;min-height:320px;max-height:720px;object-fit:cover;object-position:40% 50%;background:var(--photo-bg)}
+.band figcaption{padding-top:10px;color:var(--ink-soft);font:500 14px/1.4 var(--sans)}
+@media (min-width:900px){.band{margin-top:112px}.band-img{height:80vh}}
+
+/* availability */
+.enquire{padding:64px 0 88px}
+.enq-grid{display:grid;gap:8px}
+.mat{margin:20px calc(-1 * var(--gutter)) 0;padding:22px var(--gutter)}
+.lattice{background-color:var(--surface);background-image:repeating-linear-gradient(45deg,var(--lattice) 0 1px,transparent 1px 22px),repeating-linear-gradient(-45deg,var(--lattice) 0 1px,transparent 1px 22px)}
+.composer{display:grid;gap:16px;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row2>*{min-width:0}
+.field{display:grid;gap:6px;min-width:0;font:600 14px/1.2 var(--sans)}
+.field input,.field select{width:100%;min-width:0;min-height:48px;padding:10px 12px;border:1px solid #C2CBCE;border-radius:8px;background-color:#fff;color:var(--ink);font:500 16px/1.2 var(--sans)}
+.field select{-webkit-appearance:none;appearance:none;padding-right:34px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231C2630' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.field input:focus,.field select:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.opt{color:var(--ink-soft);font-weight:500}
+.err{margin:0;color:#A3261B;font:600 14.5px/1.4 var(--sans)}
+.chat{padding:14px 18px 14px 14px;border-radius:10px;background:#EFEAE2}
+.chat-label{margin:0 0 8px;color:#5D6B72;font:600 12.5px/1 var(--sans)}
+.bubble{position:relative;width:fit-content;max-width:94%;margin-left:auto;padding:9px 12px 10px;border-radius:10px 0 10px 10px;background:#D9FDD3;color:#111B21;font:400 15px/1.45 var(--sans);white-space:pre-wrap;overflow-wrap:anywhere;box-shadow:0 1px .5px rgba(11,20,26,.13)}
+.bubble::after{content:"";position:absolute;top:0;right:-8px;border-style:solid;border-width:0 0 10px 8px;border-color:transparent transparent transparent #D9FDD3}
+.composer .btn{width:100%}
+.fine{margin:-4px 0 0;color:var(--ink-soft);font:400 13.5px/1.45 var(--sans)}
+@media (min-width:900px){
+  .enquire{padding:112px 0 128px}
+  .enq-grid{grid-template-columns:5fr 7fr;gap:72px;align-items:start}
+  .mat{margin:0;padding:36px;border-radius:14px}
+  .composer{padding:28px}
+}
+
+/* phone sticky button */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:rgba(243,244,242,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s}
+.sticky.show{transform:none;visibility:visible;transition:transform .25s ease}
+.sticky .btn{width:100%}
+@media (min-width:900px){.sticky{display:none}}
+
+/* footer */
+.foot{padding:40px 0 calc(96px + env(safe-area-inset-bottom));border-top:1px solid var(--line);color:var(--ink-soft);font:400 15px/1.6 var(--sans)}
+.foot-grid{display:grid;gap:24px}
+.foot p{margin:0 0 6px}
+.foot-name{color:var(--ink);font:400 26px/1 var(--display)}
+.foot-note{max-width:52ch}
+@media (min-width:900px){.foot{padding-bottom:48px}.foot-grid{grid-template-columns:1fr 1fr;align-items:start}}
+
+/* photo that failed to load */
+.ph{display:flex;align-items:flex-end;padding:14px;background:repeating-linear-gradient(45deg,#E2E6E5 0 12px,#DADFDE 12px 24px);color:var(--ink-soft);font:500 13px/1.4 var(--sans)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero-photo .hero-img{animation:none}
+  .sticky{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="app"></div>
+<noscript><p>This website concept needs JavaScript turned on to display.</p></noscript>
+
+<script>
+/* =====================================================================
+   GUESTHOUSE CONCEPT TEMPLATE
+   Everything on the page comes from SITE below. For a new property:
+   1. Replace IMG with the property's own photos (from its listings for a
+      concept; photos the owner sends you for the live site). Hotlinked
+      listing photos can stop loading later.
+   2. Edit SITE: names, copy, rooms, walks, details, phone, colours.
+   3. Keep SITE.concept for previews. For a live site set concept: null
+      and remove the noindex meta tag in <head>.
+   Fonts load in <head>; change them there and in --display/--serif/--sans.
+   ===================================================================== */
+
+/* Small House photos, from the property's own Booking.com and Trip.com
+   listings. Room-to-photo matches are a best guess: confirm with the owner. */
+const IMG = {
+  courtyard:   "https://q-xx.bstatic.com/xdata/images/hotel/max1280x900/699109146.jpg?k=fd262e8968e07a8a80bfb7f55f43ec590777684d11f73d42c86758028ce2a1f4&o=&a=2237691",
+  hall:        "https://q-xx.bstatic.com/xdata/images/hotel/max1280x900/699105268.jpg?k=df2e844a9c793bec0c40176ade05b1598d2e12f885f59aabbb6a17f1c82cd483&o=&a=2237691",
+  frontAtNight:"https://q-xx.bstatic.com/xdata/images/hotel/max1280x900/699106462.jpg?k=a1dcd497c1a46f1cf271bf1bdd85bc848ec0ecb336c8507d00943f54428e7040&o=&a=2237691",
+  roomDesk:    "https://q-xx.bstatic.com/xdata/images/hotel/max1280x900/699126799.jpg?k=2baaeff6e8713a8cec2e1802fea3adc491ab9f5b01a35c2ad5e7eff1f581551d&o=&a=2237691",
+  lounge:      "https://q-xx.bstatic.com/xdata/images/hotel/max1280x900/699104204.jpg?k=cc08699168fb95f3764c440fafd9bae3323fd92a8401883466b28c538d63c4ce&o=&a=2237691",
+  roomDoors:   "https://q-xx.bstatic.com/xdata/images/hotel/max1280x900/699116412.jpg?k=5907c2297a76ad599623a4beb401918b637efbb399c5f65aa4e970598cc91177&o=&a=2237691",
+  veranda:     "https://q-xx.bstatic.com/xdata/images/hotel/max1280x900/699104371.jpg?k=4ab7ca767013320c62a1acc68783ca7d39701d8a0d459a51174efb3724b0cee9&o=&a=2237691",
+  sittingRoom: "https://ak-d.tripcdn.com/images/0225x12000lqyz8p40AF7_R_960_660_R5_D.jpg",
+  roomPatio:   "https://ak-d.tripcdn.com/images/0580w12000o9b53t68782_R_960_660_R5_D.jpg",
+  streetNight: "https://ak-d.tripcdn.com/images/0580412000n8r7sve695C_R_960_660_R5_D.jpg",
+  roomNet:     "https://ak-d.tripcdn.com/images/0225l12000lqyz7kfE147_R_960_660_R5_D.jpg"
+};
+
+const SITE = {
+  name: "Small House",
+  fullName: "Small House Boutique Guest House",
+  lede: "Four guest rooms around an open courtyard, inside the walls of Galle Fort.",
+  phoneIntl: "94772095669",          // digits only, country code first (used for WhatsApp)
+  phoneDisplay: "+94 77 209 5669",
+  address: ["Parawa Street, Galle Fort", "Galle 80000, Sri Lanka"],
+  mapsQuery: "Small House Boutique Guest House, Parawa St, Galle",
+  placeId: "ChIJpQ1JuKZz4ToRwDXeaPrKE34",
+  rating: { score: "4.6", count: 78, source: "Google", link: "https://maps.google.com/maps?cid=9084828050186450368" },
+  concept: {
+    by: "M Yahya",
+    link: "https://myahya-portfolio-six.vercel.app",
+    note: "This page is a design concept by M Yahya for Small House Boutique Guest House. It isn't the official website, and the photos come from the property's own listings."
+  },
+  theme: { wall: "#F3F4F2", ink: "#1C2630", accent: "#1F5A86", "accent-deep": "#174769", tile: "#B9603C" },
+
+  hero: { src: IMG.frontAtNight, alt: "The front veranda at dusk, with carved wooden pillars, lattice panels over the doors and the lit hall inside" },
+
+  house: {
+    title: "The house",
+    image: { src: IMG.hall, alt: "The hall, with a round dining table under a chandelier and the staircase behind" },
+    paragraphs: [
+      "Small House is an old colonial home inside Galle Fort, with whitewashed walls, wooden floors and an open courtyard at its heart. With only four guest rooms, it stays calm and personal.",
+      "Breakfast is served in the house every morning. The ramparts, the lighthouse and the cafés of Pedlar Street are all a few minutes away on foot."
+    ]
+  },
+  mentions: [
+    { title: "The breakfast", text: "Fresh and generous, with Sri Lankan and Western options." },
+    { title: "Clean, airy rooms", text: "Spotless, spacious and cool, with comfortable beds." },
+    { title: "The hosts", text: "Friendly and caring, and happy to help plan your days." },
+    { title: "The location", text: "Peaceful, yet a short walk from the Fort's cafés, shops and ramparts." }
+  ],
+  mentionsNote: "Summarised from guest reviews on Google and Trip.com.",
+
+  roomsTitle: "Four rooms",
+  roomsIntro: "Every room has air conditioning and its own bathroom. The tile beside each name shows its floor area, drawn to scale.",
+  rooms: [
+    { name: "Deluxe Double Room", size: 16, img: IMG.roomDesk,
+      alt: "A double room with a patterned bedspread, a writing desk and a bright painting",
+      facts: ["Views over the courtyard and the town", "Tea and coffee in the room"] },
+    { name: "Double Room with Patio", size: 17, img: IMG.roomPatio,
+      alt: "A double room with a green bench at the foot of the bed and doors opening outside",
+      facts: ["Ground floor, with its own patio", "Opens onto the garden"] },
+    { name: "Deluxe Queen Room", size: 21, img: IMG.roomNet,
+      alt: "A room with a four-poster bed and a white mosquito net",
+      facts: ["The largest of the double rooms", "Looks onto the inner courtyard", "Tea and coffee in the room"] },
+    { name: "Deluxe King Suite", size: 54, img: IMG.roomDoors,
+      alt: "A bedroom with tall wooden doors and a dressing table",
+      facts: ["Two bedrooms and two bathrooms", "Private terrace", "Suits families or friends travelling together"] }
+  ],
+
+  gallery: [
+    { src: IMG.courtyard, caption: "The courtyard", alt: "The whitewashed two-storey house around its open courtyard, with grey-blue shutters and a tiled roof" },
+    { src: IMG.lounge, caption: "The lounge", alt: "The lounge, with a blue sofa and yellow cushions against an old brick wall" },
+    { src: IMG.sittingRoom, caption: "The sitting room", alt: "The sitting room, with a chandelier above the dining table" },
+    { src: IMG.streetNight, caption: "From Parawa Street, at night", alt: "The front veranda seen from the street at night" }
+  ],
+
+  location: {
+    title: "Inside the Fort walls",
+    text: "Parawa Street sits inside the walls of Galle's old Dutch fort. Most of what you'll want is close by on foot.",
+    walks: [
+      ["Pedlar Street cafés", "2 min walk"],
+      ["Flag Rock", "about 300 m"],
+      ["Lighthouse Beach", "6 min walk"],
+      ["Unawatuna Beach", "7 km by tuk-tuk"]
+    ]
+  },
+
+  band: { src: IMG.veranda, caption: "The upstairs veranda", alt: "The upstairs veranda, with a daybed, terracotta floor tiles and a slatted roof" },
+
+  enquireText: "Choose your dates and send them to us on WhatsApp. We'll reply to confirm availability and the rate for your stay.",
+  details: [
+    ["Check-in", "1 pm to 10 pm"],
+    ["Check-out", "by 11:30 am"],
+    ["Breakfast", "7:30 to 10:30 am"],
+    ["Wi-Fi", "Free"],
+    ["Airport transfers", "On request, extra charge"]
+  ],
+  maxGuests: 6
+};
+
+(function () {
+  const S = SITE;
+  const root = document.documentElement;
+  Object.entries(S.theme || {}).forEach(([k, v]) => root.style.setProperty("--" + k, v));
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const img = (src, alt, cls, eager) =>
+    `<img class="${cls}" src="${esc(src)}" alt="${esc(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" referrerpolicy="no-referrer">`;
+  const pairs = list => `<ul class="pairs">${list.map(([a, b]) => `<li><span>${esc(a)}</span><span>${esc(b)}</span></li>`).join("")}</ul>`;
+
+  // A photo that fails to load becomes a labelled placeholder of the same shape.
+  document.addEventListener("error", e => {
+    const t = e.target;
+    if (!t || t.tagName !== "IMG") return;
+    const ph = document.createElement("div");
+    ph.className = "ph " + t.className;
+    ph.setAttribute("role", "img");
+    ph.setAttribute("aria-label", t.alt);
+    ph.textContent = t.alt;
+    t.replaceWith(ph);
+  }, true);
+
+  const ICON_CHAT = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5l1.2-3.4A8 8 0 1 1 8.6 19z"/><path d="M9 10.5h6M9 13.5h4"/></svg>';
+  const ICON_PREV = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
+  const ICON_NEXT = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
+
+  const waBase = "https://wa.me/" + S.phoneIntl;
+  const dirLink = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(S.mapsQuery) +
+    (S.placeId ? "&destination_place_id=" + encodeURIComponent(S.placeId) : "");
+  const maxSize = Math.max(...S.rooms.map(r => r.size));
+  const h = [];
+
+  if (S.concept) {
+    h.push(`<div class="concept" role="note">Website concept for ${esc(S.name)} by <a href="${esc(S.concept.link)}" target="_blank" rel="noopener">${esc(S.concept.by)}</a>. Not the official site.</div>`);
+  }
+
+  h.push(`<header class="top"><a class="mark" href="#main">${esc(S.name)}</a>
+    <nav aria-label="Sections"><a href="#house">The house</a><a href="#rooms">Rooms</a><a href="#location">Location</a><a href="#enquire">Availability</a></nav></header>`);
+
+  h.push(`<main id="main">`);
+
+  h.push(`<section class="hero" aria-labelledby="hero-title">
+    <div class="hero-photo">${img(S.hero.src, S.hero.alt, "hero-img", true)}</div>
+    <div class="hero-text">
+      <h1 id="hero-title">${esc(S.name)}</h1>
+      <p class="lede">${esc(S.lede)}</p>
+      <a class="btn" id="hero-cta" href="#enquire">Check availability</a>
+      ${S.rating ? `<p class="rating">Rated ${esc(S.rating.score)} out of 5 on <a href="${esc(S.rating.link)}" target="_blank" rel="noopener">${esc(S.rating.source)}</a>, from ${esc(S.rating.count)} reviews</p>` : ""}
+    </div>
+  </section>`);
+
+  h.push(`<section class="sec wrap house" id="house" aria-labelledby="house-title">
+    <figure>${img(S.house.image.src, S.house.image.alt, "house-img")}</figure>
+    <div>
+      <h2 class="sec-head" id="house-title">${esc(S.house.title)}</h2>
+      <div class="prose">${S.house.paragraphs.map(p => `<p>${esc(p)}</p>`).join("")}</div>
+      <h3 class="sub">What guests mention most</h3>
+      <ul class="mentions">${S.mentions.map(m => `<li><h4>${esc(m.title)}</h4><p>${esc(m.text)}</p></li>`).join("")}</ul>
+      <p class="note">${esc(S.mentionsNote)}</p>
+    </div>
+  </section>`);
+
+  h.push(`<section class="sec wrap" id="rooms" aria-labelledby="rooms-title">
+    <h2 class="sec-head" id="rooms-title">${esc(S.roomsTitle)}</h2>
+    <p class="prose">${esc(S.roomsIntro)}</p>
+    <div class="rooms">${S.rooms.map(r => {
+      const side = Math.max(10, Math.round(56 * Math.sqrt(r.size / maxSize)));
+      return `<article class="room">
+        ${img(r.img, r.alt, "room-img")}
+        <div class="room-body">
+          <h3>${esc(r.name)}</h3>
+          <div class="size" role="img" aria-label="Floor area ${r.size} square metres"><span class="frame"><span class="sq" style="width:${side}px;height:${side}px"></span></span><span aria-hidden="true">${r.size} m²</span></div>
+          <ul class="facts">${r.facts.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
+          <button class="link ask" type="button" data-room="${esc(r.name)}">Ask about this room</button>
+        </div>
+      </article>`;
+    }).join("")}</div>
+  </section>`);
+
+  h.push(`<section class="sec wrap" id="around" aria-labelledby="around-title">
+    <div class="strip-head"><h2 class="sec-head" id="around-title">Around the house</h2>
+      <div class="strip-nav"><button class="nav-btn" type="button" data-dir="-1" aria-label="Previous photos">${ICON_PREV}</button><button class="nav-btn" type="button" data-dir="1" aria-label="Next photos">${ICON_NEXT}</button></div></div>
+    <div class="strip" id="strip" tabindex="0" role="region" aria-label="Photos around the house">${S.gallery.map(g => `<figure>${img(g.src, g.alt, "strip-img")}<figcaption>${esc(g.caption)}</figcaption></figure>`).join("")}</div>
+  </section>`);
+
+  h.push(`<section class="sec wrap fort" id="location" aria-labelledby="loc-title">
+    <div>
+      <h2 class="sec-head" id="loc-title">${esc(S.location.title)}</h2>
+      <p class="prose">${esc(S.location.text)}</p>
+      ${pairs(S.location.walks)}
+      <a class="link" href="${esc(dirLink)}" target="_blank" rel="noopener">Get directions in Google Maps</a>
+    </div>
+    <iframe class="map" title="Map showing ${esc(S.fullName)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(S.mapsQuery)}&amp;z=16&amp;output=embed"></iframe>
+  </section>`);
+
+  if (S.band) {
+    h.push(`<figure class="band">${img(S.band.src, S.band.alt, "band-img")}<figcaption class="wrap">${esc(S.band.caption)}</figcaption></figure>`);
+  }
+
+  const guestOpts = Array.from({ length: S.maxGuests || 6 }, (_, i) => `<option value="${i + 1}"${i === 1 ? " selected" : ""}>${i + 1}</option>`).join("");
+  const roomOpts = `<option value="">Any room</option>` + S.rooms.map(r => `<option value="${esc(r.name)}">${esc(r.name)}</option>`).join("");
+
+  h.push(`<section class="enquire" id="enquire" aria-labelledby="enq-title">
+    <div class="wrap enq-grid">
+      <div>
+        <h2 class="sec-head" id="enq-title">Check availability</h2>
+        <p class="prose">${esc(S.enquireText)}</p>
+        <h3 class="sub">Good to know</h3>
+        ${pairs(S.details)}
+      </div>
+      <div class="mat lattice">
+        <form class="composer" id="composer" novalidate>
+          <div class="row2">
+            <label class="field"><span>Arrive</span><input type="date" id="arrive"></label>
+            <label class="field"><span>Leave</span><input type="date" id="leave"></label>
+          </div>
+          <label class="field"><span>Room</span><select id="room">${roomOpts}</select></label>
+          <div class="row2">
+            <label class="field"><span>Guests</span><select id="guests">${guestOpts}</select></label>
+            <label class="field"><span>Your name <span class="opt">(optional)</span></span><input type="text" id="gname" autocomplete="given-name" maxlength="60"></label>
+          </div>
+          <p class="err" id="err" role="alert" hidden></p>
+          <div class="chat"><p class="chat-label" id="chat-label">Your message</p><div class="bubble" id="msg" aria-labelledby="chat-label" aria-live="polite"></div></div>
+          <a class="btn" id="send" href="${esc(waBase)}" target="_blank" rel="noopener">${ICON_CHAT}<span>Send on WhatsApp</span></a>
+          <p class="fine">Opens WhatsApp with this message, ready to send to ${esc(S.phoneDisplay)}.</p>
+        </form>
+      </div>
+    </div>
+  </section>`);
+
+  h.push(`</main>`);
+
+  h.push(`<footer class="foot"><div class="wrap foot-grid">
+    <div><p class="foot-name">${esc(S.name)}</p><p>${S.address.map(esc).join("<br>")}</p><p><a href="tel:+${esc(S.phoneIntl)}">${esc(S.phoneDisplay)}</a></p></div>
+    ${S.concept ? `<p class="foot-note">${esc(S.concept.note)} <a href="${esc(S.concept.link)}" target="_blank" rel="noopener">More of my work</a></p>` : ""}
+  </div></footer>`);
+
+  h.push(`<div class="sticky" id="sticky"><a class="btn" href="#enquire">Check availability</a></div>`);
+
+  document.getElementById("app").innerHTML = h.join("");
+
+  /* ---------- availability message ---------- */
+  const $ = id => document.getElementById(id);
+  const arrive = $("arrive"), leave = $("leave"), guests = $("guests"), room = $("room"),
+        gname = $("gname"), err = $("err"), msg = $("msg"), send = $("send");
+  const DAY = 864e5;
+  const iso = d => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+  const parse = v => { if (!v) return null; const [y, m, d] = v.split("-").map(Number); return new Date(y, m - 1, d); };
+  const fmt = d => d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  arrive.min = iso(today);
+  leave.min = iso(new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1));
+
+  function update() {
+    const a = parse(arrive.value), l = parse(leave.value);
+    if (a) leave.min = iso(new Date(a.getFullYear(), a.getMonth(), a.getDate() + 1));
+    let problem = "";
+    if (a && a < today) problem = "Your arrival date is in the past. Pick a date from today onwards.";
+    else if (a && l && l <= a) problem = "Your leave date needs to be after your arrival date.";
+
+    const lines = [`Hello ${S.name}, I'd like to check availability.`];
+    if (a && l && !problem) {
+      const n = Math.round((l - a) / DAY);
+      lines.push(`Dates: ${fmt(a)} to ${fmt(l)} (${n} night${n === 1 ? "" : "s"})`);
+    } else if (a && !l && !problem) lines.push(`Arriving: ${fmt(a)}`);
+    else if (!a && l) lines.push(`Leaving: ${fmt(l)}`);
+    else if (!a && !l) lines.push("Dates: not fixed yet");
+    lines.push(`Guests: ${guests.value}`);
+    lines.push(`Room: ${room.value || "any"}`);
+    const nm = gname.value.trim();
+    if (nm) lines.push(`Name: ${nm}`);
+
+    const text = lines.join("\n");
+    msg.textContent = text;
+    err.textContent = problem;
+    err.hidden = !problem;
+    send.href = waBase + "?text=" + encodeURIComponent(text);
+    send.setAttribute("aria-disabled", problem ? "true" : "false");
+  }
+  ["input", "change"].forEach(ev => $("composer").addEventListener(ev, update));
+  $("composer").addEventListener("submit", e => e.preventDefault());
+  send.addEventListener("click", e => { if (send.getAttribute("aria-disabled") === "true") e.preventDefault(); });
+  update();
+
+  /* ---------- room buttons and photo arrows ---------- */
+  document.addEventListener("click", e => {
+    const ask = e.target.closest("[data-room]");
+    if (ask) {
+      room.value = ask.dataset.room;
+      update();
+      $("enquire").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      setTimeout(() => room.focus({ preventScroll: true }), reduce ? 0 : 600);
+    }
+    const nav = e.target.closest("[data-dir]");
+    if (nav) {
+      const strip = $("strip");
+      strip.scrollBy({ left: Number(nav.dataset.dir) * strip.clientWidth * 0.9, behavior: reduce ? "auto" : "smooth" });
+    }
+  });
+
+  /* ---------- phone: sticky button between the hero and the form ---------- */
+  const sticky = $("sticky");
+  if ("IntersectionObserver" in window) {
+    const seen = { hero: true, form: false };
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.target.id === "hero-cta") seen.hero = en.isIntersecting; else seen.form = en.isIntersecting; });
+      sticky.classList.toggle("show", !seen.hero && !seen.form);
+    });
+    io.observe($("hero-cta"));
+    io.observe($("enquire"));
+  }
+})();
+</script>
+</body>
+</html>

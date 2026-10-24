@@ -1,0 +1,5 @@
+# Concept pages are kept out of search by noindex (a meta tag on every page
+# and an X-Robots-Tag header). Crawling stays allowed on purpose: a crawler
+# that is blocked here never sees the noindex, and may list the bare URL.
+User-agent: *
+Allow: /

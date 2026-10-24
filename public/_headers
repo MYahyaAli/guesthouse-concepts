@@ -1,0 +1,9 @@
+# Read by Cloudflare (Workers static assets and Pages). Not served as a file.
+# Concept pages must never appear in search results.
+/*
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
+
+/photos/*
+  Cache-Control: public, max-age=604800
