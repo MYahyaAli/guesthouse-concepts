@@ -46,7 +46,7 @@ export default function Home() {
         <div className="text-center lg:text-left">
           <h1 className="text-[clamp(44px,12vw,88px)]/[1.08] font-semibold tracking-[-.01em]">
             Website concepts
-            <span className="block text-[#00FF99]">by {site.conceptBy}</span>
+            <span className="mt-2 block text-[clamp(22px,6vw,44px)]/[1.15] text-[#00FF99]">by {site.conceptBy}</span>
           </h1>
           <a
             href={site.conceptLink}
@@ -56,13 +56,18 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="relative mx-auto aspect-square order-first w-[min(64vw,260px)] lg:order-none lg:w-full lg:max-w-[400px]" aria-hidden="true">
+        <div className="relative order-first mx-auto aspect-square w-[min(72vw,300px)] lg:order-none lg:w-full lg:max-w-[460px]">
           <Ring />
-          <div className="absolute inset-[14%] grid place-items-center rounded-full bg-white/[.03]">
-            <span className="text-[clamp(72px,22vw,150px)]/none font-extrabold tracking-[-.04em] text-white">
-              M<span className="text-[#00FF99]">.</span>Y
-            </span>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element -- static export, one fixed image */}
+          <img
+            src="/portrait.webp"
+            alt={site.conceptBy}
+            width={800}
+            height={800}
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-[3%] size-[94%] object-contain"
+          />
         </div>
       </main>
     </div>
