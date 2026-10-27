@@ -19,7 +19,7 @@ Concept websites for Sri Lankan guesthouses, one static page per property. M Yah
 
 ## Setup (first session only)
 
-The folder already holds the kit (this file, `KICKOFF.md`, `content/`, `lib/`, `scripts/`, `reference/`, `public/`). create-next-app refuses non-empty folders, so scaffold into a subfolder and merge:
+The folder already holds the kit (this file, `content/`, `lib/`, `scripts/`, `reference/`, `public/`). create-next-app refuses non-empty folders, so scaffold into a subfolder and merge:
 
 1. `npx create-next-app@latest guesthouse-concepts --ts --tailwind --eslint --app --no-src-dir --import-alias "@/*" --use-npm --no-react-compiler --disable-git --yes`
 2. Move everything from `guesthouse-concepts/` (hidden files included) up into this folder **without overwriting** kit files; `public/` merges. Delete the subfolder. The package name stays `guesthouse-concepts`.
