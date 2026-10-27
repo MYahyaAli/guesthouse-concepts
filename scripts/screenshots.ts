@@ -1,13 +1,12 @@
 /**
- * Full-page screenshots of each page at phone and desktop width, taken from the
+ * Full-page screenshots of the site at phone and desktop width, taken from the
  * static build in out/, plus a few automatic checks (sideways scroll, broken
  * photos, console errors).
  *
- *   npm run build && npm run shots              every page
- *   npm run shots -- small-house-o64e           only these slugs
+ *   npm run build && npm run shots
  *
  * One-time setup: npm i -D playwright && npx playwright install chromium
- * Writes screenshots/<slug>-phone.png and screenshots/<slug>-desktop.png.
+ * Writes screenshots/phone.png and screenshots/desktop.png.
  */
 import { existsSync, statSync } from 'node:fs';
 import { mkdir, readFile } from 'node:fs/promises';
@@ -15,7 +14,6 @@ import { createServer } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import path from 'node:path';
 import { chromium } from 'playwright';
-import { properties } from '../content/index';
 
 const OUT = path.join(process.cwd(), 'out');
 const SHOTS = path.join(process.cwd(), 'screenshots');
@@ -39,9 +37,6 @@ const TYPES: Record<string, string> = {
 
 async function main() {
   if (!existsSync(path.join(OUT, 'index.html'))) throw new Error('No build found in out/. Run npm run build first.');
-  const only = process.argv.slice(2).filter((a) => !a.startsWith('--'));
-  const targets = only.length ? properties.filter((p) => only.includes(p.slug)) : properties;
-  if (!targets.length) throw new Error('No matching pages.');
   await mkdir(SHOTS, { recursive: true });
 
   // A tiny static server for out/, like the real host.
@@ -62,50 +57,50 @@ async function main() {
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
   const problems: string[] = [];
   try {
-    for (const p of targets) {
-      for (const size of SIZES) {
-        const page = await browser.newPage({ viewport: { width: size.width, height: size.height } });
-        await page.emulateMedia({ reducedMotion: 'reduce' });
-        const errors: string[] = [];
-        page.on('pageerror', (e) => errors.push(e.message));
-        page.on('console', (m) => {
-          if (m.type() === 'error' && !/google\.com\/maps|maps\.gstatic/.test(m.text())) errors.push(m.text());
-        });
-        await page.goto(`${base}/${p.slug}/`, { waitUntil: 'load' });
+    for (const size of SIZES) {
+      const page = await browser.newPage({ viewport: { width: size.width, height: size.height } });
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      const errors: string[] = [];
+      page.on('pageerror', (e) => errors.push(e.message));
+      page.on('console', (m) => {
+        if (m.type() === 'error' && !/google\.com\/maps|maps\.gstatic/.test(m.text())) errors.push(m.text());
+      });
+      await page.goto(`${base}/`, { waitUntil: 'load' });
 
-        // Browser-side code is passed as strings so the TypeScript runner can't rewrite it.
-        // Scroll to the bottom and back so lazy photos load, then wait for fonts and photos.
-        await page.evaluate(`(async () => {
-          for (let y = 0; y < document.body.scrollHeight; y += window.innerHeight * 0.8) {
-            window.scrollTo(0, y);
-            await new Promise((r) => setTimeout(r, 120));
-          }
-          window.scrollTo(0, 0);
-          await document.fonts.ready;
-          await Promise.all([...document.images].map((img) => new Promise((resolve) => {
-            if (img.complete) return resolve();
-            img.addEventListener('load', resolve, { once: true });
-            img.addEventListener('error', resolve, { once: true });
-            setTimeout(resolve, 10000);
-          })));
-        })()`);
+      // Browser-side code is passed as strings so the TypeScript runner can't rewrite it.
+      // Scroll to the bottom and back so lazy photos load, then wait for fonts and photos,
+      // including decoding (otherwise a slow machine can capture photos before they paint).
+      await page.evaluate(`(async () => {
+        for (let y = 0; y < document.body.scrollHeight; y += window.innerHeight * 0.8) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 120));
+        }
+        window.scrollTo(0, 0);
+        await document.fonts.ready;
+        await Promise.all([...document.images].map((img) => new Promise((resolve) => {
+          if (img.complete) return resolve();
+          img.addEventListener('load', resolve, { once: true });
+          img.addEventListener('error', resolve, { once: true });
+          setTimeout(resolve, 10000);
+        })));
+        await Promise.all([...document.images].map((img) => img.decode().catch(() => {})));
+      })()`);
 
-        const facts = (await page.evaluate(`({
-          overflow: document.documentElement.scrollWidth - window.innerWidth,
-          broken: [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.alt || i.src),
-          h1s: document.querySelectorAll('h1').length,
-        })`)) as { overflow: number; broken: string[]; h1s: number };
-        const where = `${p.slug} (${size.name})`;
-        if (facts.overflow > 0) problems.push(`${where}: page scrolls sideways by ${facts.overflow}px`);
-        if (facts.broken.length) problems.push(`${where}: ${facts.broken.length} photo(s) failed: ${facts.broken.join('; ')}`);
-        if (facts.h1s !== 1) problems.push(`${where}: ${facts.h1s} h1 elements (should be 1)`);
-        for (const e of errors) problems.push(`${where}: console error: ${e}`);
+      const facts = (await page.evaluate(`({
+        overflow: document.documentElement.scrollWidth - window.innerWidth,
+        broken: [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.alt || i.src),
+        h1s: document.querySelectorAll('h1').length,
+      })`)) as { overflow: number; broken: string[]; h1s: number };
+      const where = size.name;
+      if (facts.overflow > 0) problems.push(`${where}: page scrolls sideways by ${facts.overflow}px`);
+      if (facts.broken.length) problems.push(`${where}: ${facts.broken.length} photo(s) failed: ${facts.broken.join('; ')}`);
+      if (facts.h1s !== 1) problems.push(`${where}: ${facts.h1s} h1 elements (should be 1)`);
+      for (const e of errors) problems.push(`${where}: console error: ${e}`);
 
-        const file = path.join(SHOTS, `${p.slug}-${size.name}.png`);
-        await page.screenshot({ path: file, fullPage: true });
-        console.log(`  ${path.relative(process.cwd(), file)}`);
-        await page.close();
-      }
+      const file = path.join(SHOTS, `${size.name}.png`);
+      await page.screenshot({ path: file, fullPage: true });
+      console.log(`  ${path.relative(process.cwd(), file)}`);
+      await page.close();
     }
   } finally {
     await browser.close();

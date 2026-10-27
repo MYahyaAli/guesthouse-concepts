@@ -14,7 +14,7 @@ export function Hero({ p }: { p: Property }) {
       <div className="px-(--gutter) pt-[26px] lg:order-first lg:px-0 lg:pt-0 lg:pb-7">
         <h1
           id="hero-title"
-          className="display-style mb-3.5 font-display text-[clamp(54px,15vw,100px)]/[.92] font-normal tracking-[-.012em]"
+          className="mb-3.5 font-display text-[clamp(54px,15vw,100px)]/[.92] font-normal tracking-[-.012em]"
         >
           {p.name}
         </h1>

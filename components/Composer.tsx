@@ -37,7 +37,7 @@ export function Composer({
   name: string;
   whatsapp: string;
   phoneDisplay: string;
-  /** Room names for the select. Empty: no Room field. */
+  /** Room names for the Room select. */
   rooms: string[];
   maxGuests: number;
 }) {
@@ -48,7 +48,6 @@ export function Composer({
   const [guestName, setGuestName] = useState('');
   const roomRef = useRef<HTMLSelectElement>(null);
   const todayValue = useToday();
-  const hasRoomField = rooms.length > 0;
 
   // "Ask about this room": pick it, scroll to the form, focus the Room select.
   useEffect(() => {
@@ -79,7 +78,7 @@ export function Composer({
   else if (!a && l) lines.push(`Leaving: ${fmt(l)}`);
   else if (!a && !l) lines.push('Dates: not fixed yet');
   lines.push(`Guests: ${guests}`);
-  if (hasRoomField) lines.push(`Room: ${room || 'any'}`);
+  lines.push(`Room: ${room || 'any'}`);
   const nm = guestName.trim();
   if (nm) lines.push(`Name: ${nm}`);
 
@@ -98,19 +97,17 @@ export function Composer({
           <input type="date" className={control} value={leave} min={leaveMin} onChange={(e) => setLeave(e.target.value)} />
         </label>
       </div>
-      {hasRoomField && (
-        <label className={field}>
-          <span>Room</span>
-          <select ref={roomRef} className={`${control} select-arrow`} value={room} onChange={(e) => setRoom(e.target.value)}>
-            <option value="">Any room</option>
-            {rooms.map((r) => (
-              <option key={r} value={r}>
-                {r}
-              </option>
-            ))}
-          </select>
-        </label>
-      )}
+      <label className={field}>
+        <span>Room</span>
+        <select ref={roomRef} className={`${control} select-arrow`} value={room} onChange={(e) => setRoom(e.target.value)}>
+          <option value="">Any room</option>
+          {rooms.map((r) => (
+            <option key={r} value={r}>
+              {r}
+            </option>
+          ))}
+        </select>
+      </label>
       <div className="grid grid-cols-2 gap-3 *:min-w-0">
         <label className={field}>
           <span>Guests</span>

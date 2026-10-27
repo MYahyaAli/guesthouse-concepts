@@ -12,7 +12,7 @@ export interface PhotoFile {
 export interface PhotoManifest {
   /** Keyed by the original remote URL (Photo.src). */
   photos: Record<string, PhotoFile>;
-  /** 1200x630 JPEG link preview per property, keyed by slug. */
+  /** 1200x630 JPEG link preview, keyed by slug. */
   og: Record<string, PhotoFile>;
 }
 
@@ -22,18 +22,15 @@ export const manifest: PhotoManifest = {
   ...(manifestJson as Partial<PhotoManifest>),
 };
 
-/** Every photo slot on a property's page, with a label for error messages. */
+/** Every photo slot on the page, with a label for error messages. */
 export function photosOf(p: Property): { slot: string; photo: Photo }[] {
-  const out: { slot: string; photo: Photo }[] = [{ slot: 'hero', photo: p.hero }];
-  if (p.intro.photo) out.push({ slot: 'intro.photo', photo: p.intro.photo });
-  p.rooms.items.forEach((r, i) => {
-    if (r.photo) out.push({ slot: `rooms.items[${i}].photo`, photo: r.photo });
-  });
-  (p.rooms.photos ?? []).forEach((photo, i) => out.push({ slot: `rooms.photos[${i}]`, photo }));
-  if (p.day?.photo) out.push({ slot: 'day.photo', photo: p.day.photo });
-  p.gallery.photos.forEach((photo, i) => out.push({ slot: `gallery.photos[${i}]`, photo }));
-  if (p.band) out.push({ slot: 'band', photo: p.band });
-  return out;
+  return [
+    { slot: 'hero', photo: p.hero },
+    { slot: 'intro.photo', photo: p.intro.photo },
+    ...p.rooms.items.map((r, i) => ({ slot: `rooms.items[${i}].photo`, photo: r.photo })),
+    ...p.gallery.photos.map((photo, i) => ({ slot: `gallery.photos[${i}]`, photo })),
+    { slot: 'band', photo: p.band },
+  ];
 }
 
 /**
@@ -47,7 +44,7 @@ export function resolvePhoto(photo: Photo): { src: string; width?: number; heigh
     : { src: photo.src, local: false };
 }
 
-/** The link-preview image for a property, if it has been generated. */
+/** The link-preview image, if it has been generated. */
 export function ogImageOf(slug: string): PhotoFile | undefined {
   return manifest.og[slug];
 }

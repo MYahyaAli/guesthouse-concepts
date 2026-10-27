@@ -21,7 +21,7 @@ export function Location({ p }: { p: Property }) {
           {location.title}
         </h2>
         <p className={prose}>{location.text}</p>
-        {location.walks.length > 0 ? <Pairs rows={location.walks} /> : <div className="h-5" />}
+        <Pairs rows={location.walks} />
         <a className={textLink} href={directions} target="_blank" rel="noopener">
           Get directions in Google Maps
         </a>

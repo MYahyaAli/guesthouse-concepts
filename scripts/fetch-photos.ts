@@ -1,12 +1,11 @@
 /**
- * Copies every photo in content/ into public/photos/<slug>/ as WebP (max 1600px wide),
- * makes a 1200x630 JPEG link preview (og.jpg) from each hero, and records paths and
- * sizes in content/photos.generated.json. Listing photos can disappear, so the site
- * never depends on the remote URLs once this has run.
+ * Copies every photo in content/small-house.ts into public/photos/<slug>/ as WebP
+ * (max 1600px wide), makes a 1200x630 JPEG link preview (og.jpg) from the hero, and
+ * records paths and sizes in content/photos.generated.json. Listing photos can
+ * disappear, so the site never depends on the remote URLs once this has run.
  *
- *   npm run photos                      fetch what's missing
- *   npm run photos -- --force           fetch everything again
- *   npm run photos -- small-house-o64e  only these slugs
+ *   npm run photos               fetch what's missing
+ *   npm run photos -- --force    fetch everything again
  *
  * If a host refuses the download, save the image from your browser into photos-inbox/
  * named with the key the script prints (e.g. photos-inbox/3f2a9c1b0d.jpg) and run it again.
@@ -16,8 +15,8 @@ import { existsSync } from 'node:fs';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import { allProperties, properties } from '../content/index';
 import { photosOf, type PhotoFile, type PhotoManifest } from '../content/photos';
+import p from '../content/small-house';
 
 const ROOT = process.cwd();
 const MANIFEST = path.join(ROOT, 'content', 'photos.generated.json');
@@ -37,26 +36,19 @@ interface Failure extends Job {
 
 async function main() {
   if (!existsSync(path.join(ROOT, 'content'))) throw new Error('Run this from the project root.');
-  const args = process.argv.slice(2);
-  const force = args.includes('--force');
-  const only = args.filter((a) => !a.startsWith('--'));
-  const unknown = only.filter((s) => !properties.some((p) => p.slug === s));
-  if (unknown.length) throw new Error(`Unknown slug(s): ${unknown.join(', ')}`);
-  const targets = only.length ? properties.filter((p) => only.includes(p.slug)) : properties;
+  const force = process.argv.includes('--force');
 
   const manifest: PhotoManifest = { photos: {}, og: {}, ...(await readManifest()) };
   const onDisk = (f?: PhotoFile) => !!f && existsSync(path.join(PUBLIC, f.path));
 
-  // One job per photo URL per property. The same URL on two pages is stored once.
+  // One job per photo URL. The same URL in two slots is stored once.
   const jobs: Job[] = [];
   const seen = new Set<string>();
-  for (const p of targets) {
-    for (const { slot, photo } of photosOf(p)) {
-      if (seen.has(photo.src)) continue;
-      seen.add(photo.src);
-      if (!force && onDisk(manifest.photos[photo.src])) continue;
-      jobs.push({ slug: p.slug, slot, src: photo.src });
-    }
+  for (const { slot, photo } of photosOf(p)) {
+    if (seen.has(photo.src)) continue;
+    seen.add(photo.src);
+    if (!force && onDisk(manifest.photos[photo.src])) continue;
+    jobs.push({ slug: p.slug, slot, src: photo.src });
   }
 
   const failures: Failure[] = [];
@@ -72,18 +64,16 @@ async function main() {
     }
   });
 
-  // Link previews, made from the local copy of each hero.
-  for (const p of targets) {
-    const hero = manifest.photos[p.hero.src];
-    if (!onDisk(hero)) continue;
-    if (!force && onDisk(manifest.og[p.slug])) continue;
+  // The link preview, made from the local copy of the hero.
+  const hero = manifest.photos[p.hero.src];
+  if (onDisk(hero) && (force || !onDisk(manifest.og[p.slug]))) {
     manifest.og[p.slug] = await linkPreview(p.slug, hero!);
   }
 
-  // Forget photos no property uses any more (the files stay; delete them by hand if you like).
-  const used = new Set(allProperties.flatMap((p) => photosOf(p).map((x) => x.photo.src)));
+  // Forget photos the page no longer uses (the files stay; delete them by hand if you like).
+  const used = new Set(photosOf(p).map((x) => x.photo.src));
   for (const src of Object.keys(manifest.photos)) if (!used.has(src)) delete manifest.photos[src];
-  for (const slug of Object.keys(manifest.og)) if (!allProperties.some((p) => p.slug === slug)) delete manifest.og[slug];
+  for (const slug of Object.keys(manifest.og)) if (slug !== p.slug) delete manifest.og[slug];
 
   await writeFile(MANIFEST, JSON.stringify(sortKeys(manifest), null, 2) + '\n');
 

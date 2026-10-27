@@ -1,4 +1,4 @@
-import type { Property } from '../types';
+import type { Property } from './types';
 
 const booking = (id: string) =>
   `https://q-xx.bstatic.com/xdata/images/hotel/max1280x900/${id}&o=&a=2237691`;
@@ -20,9 +20,6 @@ const photo = {
 
 const smallHouse: Property = {
   slug: 'small-house-o64e',
-  tier: 'A',
-  ready: true,
-  theme: 'galle-veranda',
 
   name: 'Small House',
   fullName: 'Small House Boutique Guest House',
@@ -74,7 +71,6 @@ const smallHouse: Property = {
     title: 'Four rooms',
     intro:
       'Every room has air conditioning and its own bathroom. The tile beside each name shows its floor area, drawn to scale.',
-    sizeTiles: true,
     items: [
       {
         name: 'Deluxe Double Room',

@@ -10,11 +10,9 @@ export function Intro({ p }: { p: Property }) {
       aria-labelledby="house-title"
       className={`${section} wrap grid gap-8 lg:grid-cols-[5fr_6fr] lg:items-start lg:gap-[72px]`}
     >
-      {intro.photo && (
-        <figure className="lg:sticky lg:top-6">
-          <Photo photo={intro.photo} className="aspect-[4/5] w-full" />
-        </figure>
-      )}
+      <figure className="lg:sticky lg:top-6">
+        <Photo photo={intro.photo} className="aspect-[4/5] w-full" />
+      </figure>
       <div>
         <h2 id="house-title" className={secHead}>
           {intro.title}

@@ -1,11 +1,16 @@
 @import "tailwindcss";
 
-/* Standard theme as defaults. Each property page overrides these on :root. */
+/*
+ * Small House: whitewashed walls, grey-blue shutters, terracotta roof tiles.
+ * Every text pair passes WCAG AA (4.5:1): ink and ink-soft on bg and surface,
+ * on-accent on accent and accent-deep, accent on bg. highlight and motif are decorative only.
+ * The font roles are set from lib/fonts.ts by the layout; these are the fallbacks.
+ */
 @theme {
-  --color-bg: #F5F5F2; --color-surface: #FFFFFF; --color-ink: #1D2329; --color-ink-soft: #575F68;
-  --color-line: #DCDEDA; --color-accent: #24564F; --color-accent-deep: #1B423C; --color-on-accent: #FFFFFF;
-  --color-highlight: #D98E3A; --color-motif: #DCDEDA; --color-photo-bg: #DADDD8;
-  --font-display: ui-serif, Georgia, serif; --font-text: ui-sans-serif, system-ui, sans-serif; --font-ui: ui-sans-serif, system-ui, sans-serif;
+  --color-bg: #F3F4F2; --color-surface: #FFFFFF; --color-ink: #1C2630; --color-ink-soft: #55606B;
+  --color-line: #DADFDE; --color-accent: #1F5A86; --color-accent-deep: #174769; --color-on-accent: #FFFFFF;
+  --color-highlight: #B9603C; --color-motif: rgba(94, 116, 134, 0.22); --color-photo-bg: #D5DBDB;
+  --font-display: Georgia, "Times New Roman", serif; --font-text: Georgia, "Times New Roman", serif; --font-ui: system-ui, sans-serif;
 
   /* The reference's breakpoints: mentions, rooms, desktop. */
   --breakpoint-sm: 700px;
@@ -89,7 +94,7 @@
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 
-/* Motifs */
+/* The wooden lattice over the doors, behind the WhatsApp composer */
 @utility motif-lattice {
   background-color: var(--color-surface);
   background-image:

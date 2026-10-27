@@ -3,7 +3,7 @@ import type { Property } from '@/content/types';
 /** Desktop only (from 900px). Every section it links to always exists. */
 export function Header({ p }: { p: Property }) {
   const links: [string, string][] = [
-    ['#house', p.intro.navLabel ?? 'The house'],
+    ['#house', 'The house'],
     ['#rooms', 'Rooms'],
     ['#location', 'Location'],
     ['#enquire', 'Availability'],

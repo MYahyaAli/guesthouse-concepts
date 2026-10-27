@@ -1,85 +1,20 @@
 /**
- * The content contract for one concept site.
+ * The content contract for the Small House site.
  *
- * Every fact in a property file comes from that property's own listings,
- * its own website or its guest reviews (see `sources`). Components render
- * this data as it is. They never add facts, prices, quotes or names.
+ * Every fact comes from the property's own listings or its guest reviews
+ * (see `sources`). Components render this data as it is. They never add
+ * facts, prices, quotes or names.
  */
-
-export type Tier = 'A' | 'B';
-
-export type ThemeKey =
-  | 'galle-veranda' // Small House
-  | 'fort-pedlar' // Khalid's Guest House
-  | 'kandy-hill' // Villa 49
-  | 'mirissa-garden' // Jackie's Guesthouse
-  | 'weligama-breeze' // The Bay House
-  | 'standard'; // every Tier B property
-
-export type FontKey =
-  | 'libreCaslonDisplay'
-  | 'libreCaslonText'
-  | 'hankenGrotesk'
-  | 'abhayaLibre'
-  | 'karla'
-  | 'marcellus'
-  | 'mulish'
-  | 'bricolageGrotesque'
-  | 'figtree'
-  | 'archivo';
-
-/** The one memorable design element of a Tier A theme. See CLAUDE.md > Themes and motifs. */
-export type Motif = 'lattice' | 'arches' | 'ridgelines' | 'weave' | 'breeze-block' | 'none';
-
-export interface ThemeColors {
-  /** Page background. */
-  bg: string;
-  /** Cards, form fields, the composer. */
-  surface: string;
-  /** Main text. */
-  ink: string;
-  /** Secondary text: captions, facts, notes. Must pass 4.5:1 on bg and surface. */
-  inkSoft: string;
-  /** Hairlines and borders. */
-  line: string;
-  /** Buttons and links. Must pass 4.5:1 on bg and with onAccent. */
-  accent: string;
-  /** Button hover. */
-  accentDeep: string;
-  /** Text on accent. */
-  onAccent: string;
-  /** Decorative only (size tiles, small marks). Never for text. */
-  highlight: string;
-  /** Colour of the theme's motif. Decorative only. */
-  motif: string;
-  /** Shown behind photos while they load. */
-  photoBg: string;
-}
-
-export interface Theme {
-  key: ThemeKey;
-  /** Human name for the theme. */
-  label: string;
-  colors: ThemeColors;
-  /** display: h1 and section headings. text: body copy. ui: buttons, labels, captions, small print. */
-  fonts: { display: FontKey; text: FontKey; ui: FontKey };
-  /** Extra settings for display headings, e.g. Archivo's width axis. */
-  displayStyle?: { fontWeight?: number; fontStretch?: string; letterSpacing?: string };
-  motif: Motif;
-  /** Design direction in plain words. Read it before styling a property in this theme. */
-  direction: string;
-}
 
 export interface Photo {
   /**
-   * Original URL on the property's own listing (Booking.com, Trip.com, Airbnb,
-   * Tripadvisor management photos, or Google Maps "By owner").
+   * Original URL on the property's own listing (Booking.com or Trip.com).
    * `npm run photos` copies it into public/photos/<slug>/ and the app uses the copy.
    */
   src: string;
   /** What the photo shows, for screen readers. Never empty, never "image of". */
   alt: string;
-  /** Short visible caption (gallery, band, room photo rows). */
+  /** Short visible caption (gallery, band). */
   caption?: string;
   /** CSS object-position for the crop, e.g. '50% 30%'. Default '50% 50%'. */
   position?: string;
@@ -88,9 +23,9 @@ export interface Photo {
 export interface Room {
   /** The room type's name as the property lists it. */
   name: string;
-  /** Floor area in m², from the property's Booking.com listing. A pair is a range ("21–22 m²"). */
-  sizeM2?: number | [number, number];
-  photo?: Photo;
+  /** Floor area in m², from the property's Booking.com listing. Drawn to scale as a tile. */
+  sizeM2: number;
+  photo: Photo;
   /** Two or three short facts, each a fragment without a full stop. */
   facts: string[];
 }
@@ -103,14 +38,8 @@ export interface Mention {
 }
 
 export interface Property {
-  /** Unguessable on purpose (name + 4 random characters). Never change it, never list it. */
+  /** Names the photo folder (public/photos/<slug>/). Never change it. */
   slug: string;
-  tier: Tier;
-  /** false keeps the property out of the build. */
-  ready: boolean;
-  theme: ThemeKey;
-  /** Colour tweaks on top of the theme. Tier B uses this for its own accent. */
-  themeOverrides?: Partial<ThemeColors>;
 
   /** Short name: wordmark, h1, WhatsApp message. */
   name: string;
@@ -141,10 +70,8 @@ export interface Property {
   hero: Photo;
   intro: {
     title: string;
-    /** Header nav label for this section. Default "The house". */
-    navLabel?: string;
     paragraphs: string[];
-    photo?: Photo;
+    photo: Photo;
   };
   mentions: Mention[];
   /** Small print under the mentions, naming where the themes come from. */
@@ -153,30 +80,17 @@ export interface Property {
   rooms: {
     title: string;
     intro: string;
-    /** Draw each room's floor area as a to-scale tile (Small House only). */
-    sizeTiles?: boolean;
-    /** Room types. Empty when the property doesn't publish them. */
     items: Room[];
-    /** Room photos shown as a captioned row, for properties whose room types have no photos. */
-    photos?: Photo[];
   };
 
-  /** Jackie's only: the rhythm of a day there, on a full-bleed panel. */
-  day?: {
-    title: string;
-    moments: { when: string; text: string }[];
-    photo?: Photo;
-  };
-
-  /** Shown when it has two or more photos. */
   gallery: { title: string; photos: Photo[] };
-  /** Optional full-width photo between Location and the enquiry form. */
-  band?: Photo;
+  /** Full-width photo between Location and the enquiry form. */
+  band: Photo;
 
   location: {
     title: string;
     text: string;
-    /** [place, how far], e.g. ['Lighthouse Beach', 'About 5 min walk']. Hidden when empty. */
+    /** [place, how far], e.g. ['Lighthouse Beach', '6 min walk']. */
     walks: [string, string][];
   };
 
@@ -185,14 +99,11 @@ export interface Property {
     /** Highest number in the Guests select. */
     maxGuests: number;
   };
-  /** "Good to know" rows beside the form: [label, value]. Hidden when empty. */
+  /** "Good to know" rows beside the form: [label, value]. */
   details: [string, string][];
-
-  /** Extra links for the footer, e.g. the property's Instagram. */
-  links?: { label: string; url: string }[];
 
   /** Where the facts came from. Not rendered. */
   sources: string[];
-  /** Things to confirm with the owner. Not rendered; `npm run check` prints them. */
+  /** Things to confirm with the owner. Not rendered; `npm run check -- --confirm` prints them. */
   confirm?: string[];
 }

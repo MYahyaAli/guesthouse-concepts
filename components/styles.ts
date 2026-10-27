@@ -12,12 +12,10 @@ export const textLink =
 
 export const section = 'pt-[72px] lg:pt-28';
 
-export const secHead = 'display-style mb-[18px] font-display text-[clamp(36px,8.5vw,56px)]/[1.02] font-normal tracking-[-.005em]';
+export const secHead = 'mb-[18px] font-display text-[clamp(36px,8.5vw,56px)]/[1.02] font-normal tracking-[-.005em]';
 
 export const sub = 'mt-9 mb-1 font-text text-[21px]/[1.3] italic';
 
 export const note = 'mt-3.5 font-ui text-sm/[1.45] text-ink-soft';
 
 export const prose = 'max-w-[58ch]';
-
-export const photoBox = 'bg-photo-bg';

@@ -18,13 +18,6 @@ export function Footer({ p }: { p: Property }) {
           <p>
             <a href={`tel:+${p.contact.whatsapp}`}>{p.contact.phoneDisplay}</a>
           </p>
-          {p.links?.map((l) => (
-            <p key={l.url}>
-              <a href={l.url} target="_blank" rel="noopener">
-                {l.label}
-              </a>
-            </p>
-          ))}
         </div>
         <p className="max-w-[52ch]">
           {conceptNote(p.fullName)}{' '}
